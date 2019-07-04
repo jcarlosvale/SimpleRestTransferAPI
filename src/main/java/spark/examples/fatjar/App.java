@@ -1,7 +1,6 @@
 package spark.examples.fatjar;
 
 import com.google.gson.Gson;
-import org.eclipse.jetty.client.HttpResponse;
 import org.jboss.weld.environment.se.StartMain;
 import org.jboss.weld.environment.se.events.ContainerInitialized;
 import spark.examples.fatjar.domain.StatusResponse;
@@ -11,7 +10,6 @@ import spark.examples.fatjar.service.TransferService;
 
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
-
 import java.math.BigDecimal;
 
 import static spark.Spark.get;
@@ -32,17 +30,21 @@ public class App
         new StartMain(args).go();
     }
 
-    public void main( @Observes ContainerInitialized event )
-    {
-
-        get("/healthy", (request, response) -> "true");
+    public void main( @Observes ContainerInitialized event ) {
+        get("/ping", (request, response) -> "true");
         post("/transfer", (request, response) -> {
-            response.type("application/json");
-            //TODO: testar a deserializacao com null e valores invalidos;
-            //TODO: aceitar somente JSON
-            TransferDto transferDto = gson.fromJson(request.body(),TransferDto.class);
-            transferService.transfer(transferDto);
-            return gson.toJson((new TransferServiceResponse(StatusResponse.SUCCESS)));
+            try {
+                response.type("application/json");
+                //TODO: testar a deserializacao com null e valores invalidos;
+                //TODO: aceitar somente JSON
+                //TODO: diminuir as dependencias, principalmente o JAXBE
+                TransferDto transferDto = gson.fromJson(request.body(),TransferDto.class);
+                transferService.transfer(transferDto);
+                return gson.toJson((new TransferServiceResponse(StatusResponse.SUCCESS)));
+            } catch (Exception e) {
+                return gson.toJson((new TransferServiceResponse(StatusResponse.ERROR, e.getMessage())));
+            }
+
         });
         get("/json", (request, response) -> {
             response.type("application/json");
@@ -51,6 +53,12 @@ public class App
             transferDto.setDestinyAccountId(2L);
             transferDto.setAmount(new BigDecimal(100.55));
             return gson.toJson(transferDto);
+        });
+
+        get("/list", (request, response) -> {
+            response.type("application/json");
+
+            return gson.toJson(transferService.getAccounts());
         });
     }
 }
