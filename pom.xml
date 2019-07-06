@@ -30,12 +30,6 @@
       <artifactId>h2</artifactId>
       <version>1.4.187</version>
     </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
 
     <dependency>
       <groupId>com.sparkjava</groupId>
@@ -52,7 +46,7 @@
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>1.16.14</version>
+      <version>1.18.8</version>
       <scope>provided</scope>
     </dependency>
 
@@ -100,6 +94,29 @@
       <artifactId>jaxb-impl</artifactId>
       <version>2.3.0</version>
     </dependency>
+
+    <!-- https://mvnrepository.com/artifact/junit/junit -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.despegar</groupId>
+      <artifactId>spark-test</artifactId>
+      <version>1.1.8</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>2.23.4</version>
+      <scope>test</scope>
+    </dependency>
+
   </dependencies>
 
   <dependencyManagement>
