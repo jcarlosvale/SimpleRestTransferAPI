@@ -32,7 +32,7 @@ public class TransferControllerTest {
 
     @Test
     public void testPing() throws Exception {
-        GetMethod get = testServer.get("/ping", false);
+        GetMethod get = testServer.get("/api/private/ping", false);
         HttpResponse httpResponse = testServer.execute(get);
         assertEquals(200, httpResponse.code());
         assertEquals("true", new String(httpResponse.body()));

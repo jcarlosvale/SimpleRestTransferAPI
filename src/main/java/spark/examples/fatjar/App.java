@@ -2,6 +2,7 @@ package spark.examples.fatjar;
 
 import org.jboss.weld.environment.se.StartMain;
 import org.jboss.weld.environment.se.events.ContainerInitialized;
+import spark.examples.fatjar.controller.CorsFilter;
 import spark.examples.fatjar.controller.TransferController;
 
 import javax.enterprise.event.Observes;
@@ -20,6 +21,7 @@ public class App {
 
     public void configureRoutes( @Observes ContainerInitialized event ) {
         port(8080);
+        CorsFilter.enableCORS();
         transferController.createRoutes();
     }
 }

@@ -29,27 +29,28 @@ public class TransferController {
     }
 
     public void createRoutes() {
-        before(this::validateRequest);
+        before(((request, response) -> validateRequest(request)));
 
-        get("/ping", (req, res) -> "true");
-        get("/json", this::generateJSON);
-        get("/list", this::listAccounts);
-        get("/persist", this::persist);
-
-        path("/api", () -> {
-            post("/transfer", this::transfer); //TODO Criar enum com paths?
-            after((request, response) -> response.type("application/json"));
-            exception(CustomException.class, this::handleCustomException);
+        path("/api/private", () -> {
+            get("/ping", (req, res) -> "true");
+            get("/list", (req, res) -> listAccounts());
+            get("/persist", (req, res) -> persist());
         });
 
+        path("/api", () -> {
+            post("/transfer", (request, response) -> transfer(request));
+            exception(CustomException.class, (exception, request, response) -> handleCustomException(exception, response));
+        });
+
+        after((request, response) -> response.type("application/json"));
     }
 
-    private String persist(Request request, Response response) {
+    private String persist() {
         transferService.persist();
         return "OK";
     }
 
-    private void handleCustomException(CustomException exception, Request request, Response response) {
+    private void handleCustomException(CustomException exception, Response response) {
         Gson gsonException = new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation()
                 .create();
@@ -58,7 +59,7 @@ public class TransferController {
         response.body(gsonException.toJson(exception));
     }
 
-    private void validateRequest(Request request, Response response) {
+    private void validateRequest(Request request) {
         if (request.requestMethod().equalsIgnoreCase("POST") &&
                 request.contentType() != "application/json") {
             log.warning("[ContentTypeNotAcceptedException] Request: " + request.body());
@@ -66,7 +67,7 @@ public class TransferController {
         }
     }
 
-    private String transfer(final Request request, final Response response) {
+    private String transfer(final Request request) {
         try {
             final TransferDto transferDto = gson.fromJson(request.body(),TransferDto.class);
             transferService.transfer(transferDto);
@@ -80,15 +81,13 @@ public class TransferController {
         }
     }
 
-    private String generateJSON(Request request, Response response) {
+    private String generateJSON(Response response) {
         response.type("application/json");
         TransferDto transferDto = new TransferDto(1L, 2L, new BigDecimal(100.55));
         return gson.toJson(transferDto);
     }
 
-    private String listAccounts(Request request, Response response) {
-        response.type("application/json");
-
+    private String listAccounts() {
         return gson.toJson(transferService.getAccounts());
     }
 }

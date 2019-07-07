@@ -76,6 +76,15 @@ public class TransferService {
     }
 
     public void persist() {
-        accountRepository.saveAndFlush(new Account(new BigDecimal(5000)));
+        BigDecimal amount = new BigDecimal(500);
+        for (long id = 1; id <= 5; id++) {
+            Account accountFromDb = accountRepository.findBy(id);
+            if (null == accountFromDb) {
+                accountRepository.saveAndFlush(new Account(id,amount));
+            } else {
+                accountFromDb.setBalance(amount);
+                accountRepository.saveAndFlush(accountFromDb);
+            }
+        }
     }
 }
