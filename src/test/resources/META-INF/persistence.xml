@@ -5,7 +5,7 @@
                                  http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
     <persistence-unit name="test" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>spark.examples.simpleRestTransferAPI.domain.entity.Account</class>
+        <class>simpleRestTransferAPI.domain.entity.Account</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
