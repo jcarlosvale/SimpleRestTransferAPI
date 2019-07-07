@@ -7,6 +7,8 @@
 .project
 .settings/
 
+*.class
+*.db
 *.iml
 *.orig
 *.patch
@@ -22,3 +24,4 @@ out
 RemoteSystemsTempFiles/
 results/
 generatedResources/
+target/

@@ -3,8 +3,7 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0"
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
                                  http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-
-    <persistence-unit name="principal" transaction-type="RESOURCE_LOCAL">
+    <persistence-unit name="test" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <class>spark.examples.fatjar.domain.entity.Account</class>
 
@@ -19,5 +18,4 @@
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
         </properties>
     </persistence-unit>
-
 </persistence>
