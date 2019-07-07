@@ -1,10 +1,10 @@
-package spark.examples.fatjar.controller;
+package simpleRestTransferAPI.controller;
 
 import org.apache.deltaspike.core.api.provider.BeanProvider;
 import org.apache.deltaspike.testcontrol.api.mock.ApplicationMockManager;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import spark.examples.fatjar.repository.EntityManagerProducer;
+import simpleRestTransferAPI.repository.EntityManagerProducer;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;

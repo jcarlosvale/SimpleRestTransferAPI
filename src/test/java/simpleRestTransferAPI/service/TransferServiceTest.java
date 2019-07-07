@@ -1,16 +1,16 @@
-package spark.examples.fatjar.service;
+package simpleRestTransferAPI.service;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
-import spark.examples.fatjar.controller.exception.*;
-import spark.examples.fatjar.domain.entity.Account;
-import spark.examples.fatjar.dto.TransferDto;
-import spark.examples.fatjar.repository.AccountRepository;
+import simpleRestTransferAPI.controller.exception.*;
+import simpleRestTransferAPI.domain.entity.Account;
+import simpleRestTransferAPI.dto.TransferDto;
+import simpleRestTransferAPI.repository.AccountRepository;
 
 import java.math.BigDecimal;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class TransferServiceTest {

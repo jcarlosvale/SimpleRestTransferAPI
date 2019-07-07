@@ -1,14 +1,14 @@
-package spark.examples.fatjar.controller;
+package simpleRestTransferAPI.controller;
 
 import org.apache.deltaspike.testcontrol.api.junit.CdiTestRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import spark.examples.fatjar.controller.exception.AccountNotFoundException;
-import spark.examples.fatjar.controller.exception.NotEnoughBalanceException;
-import spark.examples.fatjar.domain.entity.Account;
-import spark.examples.fatjar.dto.TransferDto;
-import spark.examples.fatjar.repository.AccountRepository;
-import spark.examples.fatjar.service.TransferService;
+import simpleRestTransferAPI.controller.exception.AccountNotFoundException;
+import simpleRestTransferAPI.controller.exception.NotEnoughBalanceException;
+import simpleRestTransferAPI.domain.entity.Account;
+import simpleRestTransferAPI.dto.TransferDto;
+import simpleRestTransferAPI.repository.AccountRepository;
+import simpleRestTransferAPI.service.TransferService;
 
 import javax.inject.Inject;
 import java.math.BigDecimal;

@@ -1,4 +1,4 @@
-package spark.examples.fatjar.controller;
+package simpleRestTransferAPI.controller;
 
 import com.despegar.http.client.GetMethod;
 import com.despegar.http.client.HttpResponse;
@@ -7,14 +7,14 @@ import com.despegar.sparkjava.test.SparkServer;
 import com.google.gson.Gson;
 import org.junit.ClassRule;
 import org.junit.Test;
-import spark.examples.fatjar.dto.TransferDto;
-import spark.examples.fatjar.service.TransferService;
+import simpleRestTransferAPI.dto.TransferDto;
+import simpleRestTransferAPI.service.TransferService;
 import spark.servlet.SparkApplication;
 
 import java.math.BigDecimal;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
 
 public class TransferControllerTest {
 
