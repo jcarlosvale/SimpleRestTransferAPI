@@ -1,4 +1,4 @@
-package simpleRestTransferAPI.controller.exception;
+package simpleRestTransferAPI.exception;
 
 public class TransferDtoNullException extends CustomException {
     public TransferDtoNullException () {

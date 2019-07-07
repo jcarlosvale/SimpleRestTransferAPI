@@ -1,4 +1,4 @@
-package simpleRestTransferAPI.controller;
+package simpleRestTransferAPI.repository;
 
 import org.apache.deltaspike.core.api.provider.BeanProvider;
 import org.apache.deltaspike.testcontrol.api.mock.ApplicationMockManager;
@@ -39,15 +39,11 @@ public class EntityManagerTest {
 
         EntityManager em;
 
-        public MockedEntityManagerProducer() {
-        }
-
         public MockedEntityManagerProducer(EntityManager em) {
             this.em = em;
         }
 
         @Produces
-        @Typed
         @Override
         public EntityManager getEntityManager() {
             return this.em;

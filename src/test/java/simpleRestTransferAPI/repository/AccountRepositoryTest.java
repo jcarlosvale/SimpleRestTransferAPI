@@ -1,13 +1,12 @@
-package simpleRestTransferAPI.controller;
+package simpleRestTransferAPI.repository;
 
 import org.apache.deltaspike.testcontrol.api.junit.CdiTestRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import simpleRestTransferAPI.controller.exception.AccountNotFoundException;
-import simpleRestTransferAPI.controller.exception.NotEnoughBalanceException;
-import simpleRestTransferAPI.domain.entity.Account;
+import simpleRestTransferAPI.exception.AccountNotFoundException;
+import simpleRestTransferAPI.exception.NotEnoughBalanceException;
+import simpleRestTransferAPI.entity.Account;
 import simpleRestTransferAPI.dto.TransferDto;
-import simpleRestTransferAPI.repository.AccountRepository;
 import simpleRestTransferAPI.service.TransferService;
 
 import javax.inject.Inject;

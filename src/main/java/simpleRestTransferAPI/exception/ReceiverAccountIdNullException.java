@@ -1,4 +1,4 @@
-package simpleRestTransferAPI.controller.exception;
+package simpleRestTransferAPI.exception;
 
 public class ReceiverAccountIdNullException extends CustomException {
 

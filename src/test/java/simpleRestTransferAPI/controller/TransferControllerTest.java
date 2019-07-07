@@ -1,6 +1,5 @@
 package simpleRestTransferAPI.controller;
 
-import com.despegar.http.client.GetMethod;
 import com.despegar.http.client.HttpResponse;
 import com.despegar.http.client.PostMethod;
 import com.despegar.sparkjava.test.SparkServer;
@@ -29,14 +28,6 @@ public class TransferControllerTest {
     @ClassRule
     public static SparkServer<TestControllerTestSparkApplication> testServer =
             new SparkServer<>(TestControllerTestSparkApplication.class, 4567);
-
-    @Test
-    public void testPing() throws Exception {
-        GetMethod get = testServer.get("/api/private/ping", false);
-        HttpResponse httpResponse = testServer.execute(get);
-        assertEquals(200, httpResponse.code());
-        assertEquals("true", new String(httpResponse.body()));
-    }
 
     @Test
     public void testContentTypeException() throws Exception {
@@ -70,5 +61,21 @@ public class TransferControllerTest {
         post.addHeader("Content-Type", "application/json");
         HttpResponse httpResponse = testServer.execute(post);
         assertEquals(200, httpResponse.code());
+    }
+
+    @Test
+    public void testInvalidAmount() throws Exception {
+        PostMethod post = testServer.post("/api/transfer", invalidAmountJson(), false);
+        post.addHeader("Content-Type", "application/json");
+        HttpResponse httpResponse = testServer.execute(post);
+        assertEquals(400, httpResponse.code());
+    }
+
+    private String invalidAmountJson() {
+        return "{\n" +
+                "\"senderAccountId\": 1,\n" +
+                "\"receiverAccountId\": 2,\n" +
+                "\"amount\": some\n" +
+                "}";
     }
 }

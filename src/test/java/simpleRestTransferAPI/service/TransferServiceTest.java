@@ -3,8 +3,8 @@ package simpleRestTransferAPI.service;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
-import simpleRestTransferAPI.controller.exception.*;
-import simpleRestTransferAPI.domain.entity.Account;
+import simpleRestTransferAPI.exception.*;
+import simpleRestTransferAPI.entity.Account;
 import simpleRestTransferAPI.dto.TransferDto;
 import simpleRestTransferAPI.repository.AccountRepository;
 

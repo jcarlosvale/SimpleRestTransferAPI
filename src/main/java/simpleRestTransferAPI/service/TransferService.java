@@ -1,8 +1,8 @@
 package simpleRestTransferAPI.service;
 
 
-import simpleRestTransferAPI.controller.exception.*;
-import simpleRestTransferAPI.domain.entity.Account;
+import simpleRestTransferAPI.exception.*;
+import simpleRestTransferAPI.entity.Account;
 import simpleRestTransferAPI.dto.TransferDto;
 import simpleRestTransferAPI.repository.AccountRepository;
 
@@ -65,27 +65,6 @@ public class TransferService {
         }
         if (null == transferDto.getAmount() || transferDto.getAmount().compareTo(BigDecimal.ZERO) < 0) {
             throw new InvalidAmountException();
-        }
-    }
-
-    public String getAccounts() {
-        String accounts = " ";
-        for (Account account : accountRepository.findAll()) {
-            accounts = accounts + "\n" + account;
-        }
-        return accounts;
-    }
-
-    public void persist() {
-        BigDecimal amount = new BigDecimal(500);
-        for (long id = 1; id <= 5; id++) {
-            Account accountFromDb = accountRepository.findBy(id);
-            if (null == accountFromDb) {
-                accountRepository.saveAndFlush(new Account(id,amount));
-            } else {
-                accountFromDb.setBalance(amount);
-                accountRepository.saveAndFlush(accountFromDb);
-            }
         }
     }
 }

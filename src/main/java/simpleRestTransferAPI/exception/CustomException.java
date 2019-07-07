@@ -1,4 +1,4 @@
-package simpleRestTransferAPI.controller.exception;
+package simpleRestTransferAPI.exception;
 
 import com.google.gson.annotations.Expose;
 import lombok.Getter;

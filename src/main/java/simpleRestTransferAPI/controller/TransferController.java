@@ -2,17 +2,18 @@ package simpleRestTransferAPI.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 import lombok.extern.java.Log;
-import simpleRestTransferAPI.controller.exception.ContentTypeNotAcceptedException;
-import simpleRestTransferAPI.controller.exception.CustomException;
-import simpleRestTransferAPI.controller.exception.InternalServerErrorException;
 import simpleRestTransferAPI.dto.TransferDto;
+import simpleRestTransferAPI.exception.ContentTypeNotAcceptedException;
+import simpleRestTransferAPI.exception.CustomException;
+import simpleRestTransferAPI.exception.InternalServerErrorException;
+import simpleRestTransferAPI.exception.MalFormedJsonException;
 import simpleRestTransferAPI.service.TransferService;
 import spark.Request;
 import spark.Response;
 
 import javax.inject.Inject;
-import java.math.BigDecimal;
 
 import static spark.Spark.*;
 
@@ -31,23 +32,12 @@ public class TransferController {
     public void createRoutes() {
         before(((request, response) -> validateRequest(request)));
 
-        path("/api/private", () -> {
-            get("/ping", (req, res) -> "true");
-            get("/list", (req, res) -> listAccounts());
-            get("/persist", (req, res) -> persist());
-        });
-
         path("/api", () -> {
             post("/transfer", (request, response) -> transfer(request));
             exception(CustomException.class, (exception, request, response) -> handleCustomException(exception, response));
         });
 
         after((request, response) -> response.type("application/json"));
-    }
-
-    private String persist() {
-        transferService.persist();
-        return "OK";
     }
 
     private void handleCustomException(CustomException exception, Response response) {
@@ -69,9 +59,11 @@ public class TransferController {
 
     private String transfer(final Request request) {
         try {
-            final TransferDto transferDto = gson.fromJson(request.body(),TransferDto.class);
+            final TransferDto transferDto = gson.fromJson(request.body(), TransferDto.class);
             transferService.transfer(transferDto);
             return gson.toJson("Operation completed.");
+        } catch (JsonSyntaxException e) {
+            throw new MalFormedJsonException();
         } catch (CustomException e) {
             log.warning("[CustomException] Request: " + request + " , cause: " + e);
             throw e;
@@ -79,15 +71,5 @@ public class TransferController {
             log.severe("[InternalServerErrorException] Request: " + request + ", cause: " + e);
             throw new InternalServerErrorException();
         }
-    }
-
-    private String generateJSON(Response response) {
-        response.type("application/json");
-        TransferDto transferDto = new TransferDto(1L, 2L, new BigDecimal(100.55));
-        return gson.toJson(transferDto);
-    }
-
-    private String listAccounts() {
-        return gson.toJson(transferService.getAccounts());
     }
 }
